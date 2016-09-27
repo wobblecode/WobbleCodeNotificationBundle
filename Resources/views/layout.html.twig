@@ -1,0 +1,11 @@
+{% extends 'WobbleCodeControlUserInterfaceBundle::layout_app_admin.html.twig' %}
+
+{% block app_left_sidebar_title %}Notification{% endblock %}
+
+{% block app_left_sidebar_desc %}Notification Description{% endblock %}
+
+{% block app_left_sidebar_list %}
+  {{ knp_menu_render('notification', {
+    'currentClass': 'active'
+  }) }}
+{% endblock %}

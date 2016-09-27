@@ -1,0 +1,24 @@
+{% extends 'WobbleCodeNotificationBundle::layout.html.twig' %}
+
+{% block app_content_title %}
+  {{ 'WobbleCodeNotification.view.User.Subscription.new.title'|trans }}
+{% endblock %}
+
+{% block app_content_content %}
+  <div class="row">
+    <div class="col-sm-7">
+      <p class="lead"> {{ 'WobbleCodeNotification.view.User.Subscription.new.subtitle'|trans }}</p>
+
+      <form action="{{ path('user_notification_subscription_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+
+        <hr/>
+        <button class="btn btn-primary" type="submit">{{ 'WobbleCodeNotification.view.User.Subscription.new.button.create'|trans }}</button>
+        <a class="btn btn-link" href="{{ path('user_notification_subscription') }}">
+          {{ 'WobbleCodeNotification.view.User.Subscription.new.link.back'|trans }}
+        </a>
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

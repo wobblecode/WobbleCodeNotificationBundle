@@ -1,0 +1,114 @@
+{% macro alert_box(notification) %}
+
+{% if notification.actionAt == null and notification.actionRequired %}
+  {% set closeClass = 'hide' %}
+  {% set buttonClass = 'btn-primary' %}
+{% else %}
+  {% set buttonClass = 'btn-default btn-sm' %}
+  {% set closeClass = '' %}
+{% endif %}
+
+{% set statusStyle = ['default', 'info', 'info', 'success', 'warning', 'danger', 'danger', 'danger', 'danger'] %}
+
+<div id="notification_{{ notification.id }}" class="alert alert-{{ attribute(statusStyle, notification.levelPriority) }}">
+
+  {% if notification.readAt == null %}
+  <button id="notification_close_button_{{ notification.id }}" type="button" class="close {{ closeClass }}">×</button>
+  {% endif %}
+
+  {{ notification.description|markdown }}
+
+  <form id="notification_form_read_{{ notification.id }}" action="{{ path("wobblecode_notification_notification_read") }}">
+    <input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="notification_id" value="{{ notification.id }}" />
+  </form>
+
+  {% if notification.createdAt %}
+    <small class="text-muted"
+      {% if notification.readAt %}
+      title="{{'WobbleCodeNotification.macro.alert_box.readAt'|trans}} {{ notification.readAt|date('Y-m-d H:i') }}"
+      data-toggle="tooltip"
+      {% endif %}
+    ">{{'WobbleCodeNotification.macro.alert_box.createdAt'|trans}} {{ notification.createdAt|date('Y-m-d H:i') }}<br/></small>
+  {% endif %}
+  {% if notification.actionRequired %}
+    {% if notification.actionAt %}
+    <small id="notification_task_action_at_{{ notification.id }}" class="text-muted">{{'WobbleCodeNotification.macro.alert_box.actionAt'|trans}} {{ notification.actionAt|date('Y-m-d H:i') }}<br/></small>
+    {% endif %}
+  <button id="notification_task_button_{{ notification.id }}" data-loading-text="{{ 'WobbleCodeNotification.macro.alert_box.button.loading'|trans }}" class="btn {{ buttonClass }} hmt">
+    {% if notification.actionStatus == 'pending' %}
+      {{ 'WobbleCodeNotification.macro.alert_box.button.complete'|trans }}
+    {% endif %}
+    {% if notification.actionStatus == 'completed' %}
+      {{ 'WobbleCodeNotification.macro.alert_box.button.uncomplete'|trans }}
+    {% endif %}
+  </button>
+  <form id="notification_form_task_{{ notification.id }}" action="{{ path("wobblecode_notification_notification_task") }}">
+    <input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="notification_id" value="{{ notification.id }}" />
+  </form>
+  {% endif %}
+  <script>
+  jQuery(document).ready(function($) {
+
+    function notificationAjax (action, id) {
+
+      var notification = $('#notification_' + id);
+      var formUrl = $("#notification_form_" + action + '_' + id ).attr("action");
+      var formData = $("#notification_form_" + action + '_' + id ).serialize();
+
+      if (action == 'task') {
+        var taskButton = $('#notification_task_button_' + id);
+      }
+
+      $.ajax({
+        type: 'POST',
+        url: formUrl,
+        data: formData,
+        statusCode: {
+          200: function(response) {
+            if (action === 'read') {
+              notification.remove();
+            } else if(action === 'task') {
+              if(response == 'completed') {
+                taskButton.html('{{ 'WobbleCodeNotification.macro.alert_box.button.uncomplete'|trans }}');
+                taskButton.addClass('btn-sm');
+                taskButton.addClass('btn-default');
+                taskButton.removeClass('btn-primary');
+                console.log('SHOW');
+                $('#notification_close_button_' + id).removeClass('hide').show();
+              } else {
+                taskButton.removeClass('btn-sm');
+                taskButton.removeClass('btn-default');
+                taskButton.addClass('btn-primary');
+                taskButton.html('{{ 'WobbleCodeNotification.macro.alert_box.button.complete'|trans }}');
+                $('#notification_task_action_at_' + id).remove();
+                $('#notification_close_button_' + id).hide();
+              }
+              taskButton.button('complete');
+            }
+          }
+        },
+        error: function() {
+          notification
+            .append('<br/><b class="text-error">Whoops, looks like something went wrong try again. </b>');
+            $('#notification_task_button_' + id).button('reset');
+        }
+      });
+    }
+
+    $('#notification_close_button_{{ notification.id }}').click(function (e) {
+      e.preventDefault();
+      $('#notification_action_{{ notification.id }}').val('read');
+      notificationAjax('read', '{{notification.id}}');
+    });
+
+    $('#notification_task_button_{{ notification.id }}').click(function (e) {
+      $(this).button('loading');
+      e.preventDefault();
+      notificationAjax('task', '{{notification.id}}');
+    });
+  });
+  </script>
+</div>
+{% endmacro %}

@@ -1,0 +1,156 @@
+{% extends 'WobbleCodeAdminBundle::layout.html.twig' %}
+
+{% block app_content_title %}
+  {{ 'WobbleCodeNotification.view.Admin.Notification.show.title'|trans({'%id%': entity.id}) }}
+{% endblock %}
+
+{% block app_content_content %}
+<div class="row">
+
+  <div class="col-md-4 col-md-push-8">
+     {% if entity.deletedAt %}
+    <div class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <h4>{{ "common.metadata.sofdeleted_alert.title"|trans }}</h4>
+      <p>
+        {{ "common.metadata.sofdeleted_alert.desc"|trans({"%updatedBy%": entity.updatedBy, "%deletedAt%": entity.deletedAt}) }}
+      </p>
+    </div>
+    {% endif %}
+    <ul class="list-group list-flat">
+      <li class="list-group-item list-title">
+        <h5>{{ "common.metadata.title"|trans }}</h5>
+      </li>
+      <li class="list-group-item">{{ "common.metadata.created_at"|trans }} <span data-toggle="tooltip" title="{{ entity.createdAt|date('Y-m-d H:i:s') }}">{{ entity.createdAt|date('Y-m-d') }}</span></li>
+       {% if entity.updatedAt %}
+      <li class="list-group-item">{{ "common.metadata.updated_at"|trans }} <span data-toggle="tooltip" title="{{ entity.updatedAt|date('Y-m-d H:i:s') }}">{{ entity.updatedAt|date('Y-m-d') }}</span></li>
+      {% endif %}       {% if entity.deletedAt %}
+      <li class="list-group-item">{{ "common.metadata.deleted_at"|trans }} <span data-toggle="tooltip" title="{{ entity.deletedAt|date('Y-m-d H:i:s') }}">{{ entity.deletedAt|date('Y-m-d') }}</span></li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div class="col-md-8 col-md-pull-4">
+    <p class="lead">{{ 'WobbleCodeNotification.view.Admin.Notification.show.subtitle'|trans({'%id%': entity.id}) }}</p>
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#general" data-toggle="tab">{{ "common.view.show.general.tab"|trans }}</a></li>
+                <li class=""><a href="#actions" data-toggle="tab">{{ "common.view.show.actions.tab"|trans }}</a></li>
+      </ul>
+
+      <div class="tab-content">
+
+        <div class="tab-pane fade active in" id="general">
+          <div class="table-responsive">
+            <table class="table table-list">
+              <tbody>
+              <tr>
+                  <th>{{ 'WobbleCodeNotification.view.Admin.Notification.show.field.id'|trans }}</th><td>{{ entity.id }}</td>                </tr>
+              <tr>
+                  <th>{{ 'WobbleCodeNotification.view.Admin.Notification.show.field.title'|trans }}</th><td>{{ entity.title }}</td>                </tr>
+              <tr>
+                  <th>{{ 'WobbleCodeNotification.view.Admin.Notification.show.field.description'|trans }}</th><td>{{ entity.description }}</td>                </tr>
+              <tr>
+                  <th>{{ 'WobbleCodeNotification.view.Admin.Notification.show.field.status'|trans }}</th><td>{{ entity.status }}</td>                </tr>
+              <tr>
+                  <th>{{ 'WobbleCodeNotification.view.Admin.Notification.show.field.level'|trans }}</th><td>{{ entity.level }}</td>                </tr>
+              <tr>
+                  <th>{{ 'WobbleCodeNotification.view.Admin.Notification.show.field.interfacePlacement'|trans }}</th><td>{{ entity.interfacePlacement }}</td>                </tr>
+              <tr>
+                  <th>{{ 'WobbleCodeNotification.view.Admin.Notification.show.field.actionRequired'|trans }}</th><td>{{ entity.actionRequired ? 'Yes' : 'No' }}</td>                </tr>
+              <tr>
+                  <th>{{ 'WobbleCodeNotification.view.Admin.Notification.show.field.actionStatus'|trans }}</th><td>{{ entity.actionStatus }}</td>                </tr>
+              <tr>
+                  <th>{{ 'WobbleCodeNotification.view.Admin.Notification.show.field.actionAt'|trans }}</th><td>
+                     {% if entity.actionAt %}
+                      {{ entity.actionAt|date('Y-m-d H:i:s') }}
+                    {% else %}
+                      <span class="text-muted">n/a</span>
+                    {% endif %}
+                  </td>                </tr>
+              <tr>
+                  <th>{{ 'WobbleCodeNotification.view.Admin.Notification.show.field.readAt'|trans }}</th><td>
+                     {% if entity.readAt %}
+                      {{ entity.readAt|date('Y-m-d H:i:s') }}
+                    {% else %}
+                      <span class="text-muted">n/a</span>
+                    {% endif %}
+                  </td>                </tr>
+              <tr>
+                  <th>{{ 'WobbleCodeNotification.view.Admin.Notification.show.field.createdAt'|trans }}</th><td>
+                     {% if entity.createdAt %}
+                      {{ entity.createdAt|date('Y-m-d H:i:s') }}
+                    {% else %}
+                      <span class="text-muted">n/a</span>
+                    {% endif %}
+                  </td>                </tr>
+              <tr>
+                  <th>{{ 'WobbleCodeNotification.view.Admin.Notification.show.field.updatedAt'|trans }}</th><td>
+                     {% if entity.updatedAt %}
+                      {{ entity.updatedAt|date('Y-m-d H:i:s') }}
+                    {% else %}
+                      <span class="text-muted">n/a</span>
+                    {% endif %}
+                  </td>                </tr>
+              <tr>
+                  <th>{{ 'WobbleCodeNotification.view.Admin.Notification.show.field.deletedAt'|trans }}</th><td>
+                     {% if entity.deletedAt %}
+                      {{ entity.deletedAt|date('Y-m-d H:i:s') }}
+                    {% else %}
+                      <span class="text-muted">n/a</span>
+                    {% endif %}
+                  </td>                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr/>
+
+          <a class="btn btn-primary" href="{{ path('admin_notification_notification_edit', { 'id': entity.id }) }}">{{ 'WobbleCodeNotification.view.Admin.Notification.show.button.edit'|trans }}</a>
+          <a class="btn btn-link" href="{{ path('admin_notification_notification') }}">
+            {{ 'WobbleCodeNotification.view.Admin.Notification.show.link.back'|trans }}
+          </a>
+
+          {% if not entity.deletedAt  %}
+          <button onclick="$('#form_delete_{{ delete_form.vars.name  }}').submit();" class="btn btn-danger pull-right" type="submit">{{ 'WobbleCodeNotification.view.Admin.Notification.show.button.delete'|trans }}</button>
+          {% endif %}
+          <form id="form_delete_{{ delete_form.vars.name  }}" action="{{ path('admin_notification_notification_delete', { 'id': entity.id }) }}" method="post">
+            <input type="hidden" name="_method" value="DELETE" />
+            {{ form_widget(delete_form) }}
+          </form>
+        </div>
+
+        <div class="tab-pane fade" id="actions">
+          {% if entity.deletedAt %}
+          <h5>{{ "common.view.show.actions.recover.title"|trans }}</h5>
+          <p>
+            {{ "common.view.show.actions.recover.desc"|trans }}
+          </p>
+          <p>
+            <form id="form_recover_{{ recover_form.vars.name  }}" action="{{ path('admin_notification_notification_recover', { 'id': entity.id }) }}" method="post">
+              {{ form_widget(recover_form) }}
+              <button class="btn btn-primary">{{ "common.view.show.actions.recover.button"|trans }}</button>
+            </form>
+          </p>
+          <hr/>
+          {% endif %}
+          <h5>{{ entity.deletedAt ? "common.view.show.actions.softdelete.title.hard" : "common.view.show.actions.softdelete.title.soft"|trans }}</h5>
+          <p>
+            {{ "common.view.show.actions.softdelete.desc"|trans }}
+            <a href="?showdeleted=enabled">{{ "common.view.show.actions.softdelete.linkshow"|trans }}</a>
+          </p>
+          <p>
+            <form id="form_delete_{{ delete_form.vars.name  }}" action="{{ path('admin_notification_notification_delete', { 'id': entity.id }) }}" method="post">
+              <input type="hidden" name="_method" value="DELETE" />
+              <input type="hidden" name="_hard" value="true" />
+              {{ form_widget(delete_form) }}
+              <button class="btn btn-danger">{{ entity.deletedAt ? "common.view.show.actions.softdelete.button.hard" : "common.view.show.actions.softdelete.button.soft"|trans }}</button>
+            </form>
+          </p>
+          </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

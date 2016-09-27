@@ -1,0 +1,24 @@
+{% extends 'WobbleCodeAdminBundle::layout.html.twig' %}
+
+{% block app_content_title %}
+  {{ 'WobbleCodeNotification.view.Admin.Event.new.title'|trans }}
+{% endblock %}
+
+{% block app_content_content %}
+  <div class="row">
+    <div class="col-sm-7">
+      <p class="lead"> {{ 'WobbleCodeNotification.view.Admin.Event.new.subtitle'|trans }}</p>
+
+      <form action="{{ path('admin_notification_event_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+
+        <hr/>
+        <button class="btn btn-primary" type="submit">{{ 'WobbleCodeNotification.view.Admin.Event.new.button.create'|trans }}</button>
+        <a class="btn btn-link" href="{{ path('admin_notification_event') }}">
+          {{ 'WobbleCodeNotification.view.Admin.Event.new.link.back'|trans }}
+        </a>
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

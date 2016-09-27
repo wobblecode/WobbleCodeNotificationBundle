@@ -1,0 +1,212 @@
+notify:
+    event:
+        label: Evento
+        placeholder: ""
+        help: "Evento Key"
+    organizations:
+        label: Organización
+        placeholder: ""
+        help: ""
+    users:
+        label: Usuarios
+        placeholder: ""
+        help: "Notificación directa a usuarios"
+    language:
+        label: Idioma
+        placeholder: ""
+        help: "Puede que quieras envíar múltiples mensajes basados en cada idioma"
+    level:
+        label: Nivel
+        placeholder: ""
+        help: "Determina el nivel de alerta y estilo de la notificación"
+    interfacePlacement:
+        label: Lugar en el Interface
+        placeholder: ""
+        help: '<span class="text-danger">OBSOLETO no usar!</span>'
+    subject:
+        label: Asunto
+        placeholder: "Ej: Por favor actualiza el API de tu Callback"
+        help: ""
+    message:
+        label: Mensaje
+        placeholder: ""
+        help: 'Ayuda Markdown: <a href="http://bit.ly/1dQOfRK" target="_blank">http://bit.ly/1dQOfRK</a>'
+    actionRequired:
+        label: Acción Requerida
+        placeholder: ""
+        help: "Determina si el usuario tiene que confirmar una acción"
+    forceChannels:
+        label: Forzar canales
+        placeholder: ""
+        help: "Enviará la notificación por todos los canales del evento incluso si el usuario lo tiene desactivado"
+    send:
+        label: Enviar
+
+subscription:
+    sendEmail:
+        label: Envía Email
+        placeholder: ""
+        help: "Determina si se envía email"
+    enabled:
+        label: Activada
+        placeholder: ""
+        help: "Determina si la subscripción está activa"
+    visible:
+        label: Visible
+        placeholder: ""
+        help: "Si la subscripción es visible por el usuario"
+    event:
+        label: Evento
+        placeholder: ""
+        help: ""
+    user:
+        label: Usuario
+        placeholder: ""
+        help: ""
+    organization:
+        label: Organización
+        placeholder: ""
+        help: ""
+    expressionRule:
+        label: Regla de condición
+        placeholder: ""
+        help: 'Solo notificará si la expresión es "true". Ayuda <a href="http://bit.ly/1hwYMsp" taget="_blank">http://bit.ly/1hwYMsp</a>'
+        placeholder: ""
+    save:
+        label: Guardar
+
+notification:
+    title:
+        label: Título
+        placeholder: ""
+        help: ""
+    description:
+        label: Descripción
+        placeholder: ""
+        help: "Soporta Markdown"
+    status:
+        label: Estado
+        placeholder: ""
+        help: ""
+    level:
+        label: Nivel
+        placeholder: ""
+        help: ""
+    interfacePlacement:
+        label: Lugar en interface
+        placeholder: ""
+        help: '<span class="text-danger">OBSOLETO!</span>'
+    actionRequired:
+        label: Requiere Acción
+        placeholder: ""
+        help: "Determina si el usuario tiene que confirmar una acción"
+    actionStatus:
+        label: Estado de la acción
+        placeholder: ""
+        help: ""
+    event:
+        label: Evento
+        placeholder: ""
+        help: ""
+    user:
+        label: Usuario
+        placeholder: ""
+        help: ""
+    organization:
+        label: Organización
+        placeholder: ""
+        help: ""
+    save:
+        label: Guardar
+
+event:
+    key:
+        label: Key
+        placeholder: ""
+        help: ""
+    manual:
+        label: Manual
+        placeholder: ""
+        help: "Si este tipo de evento se ejecuta de forma manual Eg: newsletters"
+    description:
+        label: Descripción
+        placeholder: ""
+        help: ""
+    roles:
+        label: Roles
+        placeholder: "Define para que roles está disponbile este evento"
+        help: ""
+    channels:
+        label: Canales
+        placeholder: "Define que canales estan activos para este evento"
+        help: ""
+    defaults:
+        label: Opciones por defecto
+        placeholder: ""
+        help: ""
+        choice:
+            email: Envía email
+            visible: Opciones visibles por defecto
+            enabled: Está activa por defecto
+    level:
+        label: Nivel de alerta
+        placeholder: ""
+        help: ""
+    tags:
+        label: Tags
+        placeholder: ""
+        help: ""
+    expressionRule:
+        label: Regla de condición
+        placeholder: ""
+        help: 'Solo notificará si la expresión es "true". Ayuda <a href="http://bit.ly/1hwYMsp" taget="_blank">http://bit.ly/1hwYMsp</a>'
+    uiTemplate:
+        label: Plantilla para UI
+        placeholder: ""
+        help: "Ruta Twig, permite usar token %lang%"
+    emailTemplate:
+        label: Plantilla para email
+        placeholder: ""
+        help: "Ruta Twig, permite usar token %lang%"
+    channelTemplate:
+        label: Plantillas para canales
+        placeholder: ""
+        help: "En formato JSON - Test JSON http://jsonlint.com"
+    fromEmail:
+        label: Desde
+        placeholder: ""
+        help: "Define que contacto envía la notificación"
+    fromName:
+        label: Nombre remitente
+        placeholder: ""
+        help: "Define el nombre del contacto que envía la notificación"
+    bcc:
+        label: Email BCC
+        placeholder: ""
+        help: "Envía BCC a estas direcciones"
+    update:
+        label: Forzar Suscripciones
+        placeholder: ""
+        help: "Activado fuerza la acutalización de las suscripciones"
+    save:
+        label: Guardar
+
+channel:
+    name:
+        label: Nombre
+        placeholder: ""
+        help: ""
+    service:
+        label: Servicio
+        placeholder: "Ej: instasent.channel.slack"
+        help: "Nombre servicio Symfony"
+    description:
+        label: Descripción
+        placeholder: ""
+        help: ""
+    params:
+        label: Parámetros
+        placeholder: "[]"
+        help: "En formato JSON - Test JSON http://jsonlint.com"
+    save:
+        label: Guardar

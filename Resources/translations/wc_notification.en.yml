@@ -1,0 +1,212 @@
+notify:
+    event:
+        label: Event
+        placeholder: ""
+        help: "Event key"
+    organizations:
+        label: Organization
+        placeholder: ""
+        help: ""
+    users:
+        label: Users
+        placeholder: ""
+        help: "Notify direct users"
+    language:
+        label: Language
+        placeholder: ""
+        help: "You may want to send differente message based on language"
+    level:
+        label: Level
+        placeholder: ""
+        help: "Determines the type and style of notification"
+    interfacePlacement:
+        label: Interface Placement
+        placeholder: ""
+        help: '<span class="text-danger">DEPRECATED!</span>'
+    subject:
+        label: Subject
+        placeholder: "Eg: Please update your API Callback"
+        help: ""
+    message:
+        label: Message
+        placeholder: ""
+        help: 'Help Markdown: <a href="http://bit.ly/1dQOfRK" target="_blank">http://bit.ly/1dQOfRK</a>'
+    actionRequired:
+        label: Action Required
+        placeholder: ""
+        help: "If user has to confirm an action"
+    forceChannels:
+        label: Force Channels
+        placeholder: ""
+        help: "It will send a notification on event channels even if user disabled it"
+    send:
+        label: Send
+
+subscription:
+    sendEmail:
+        label: Send Email
+        placeholder: ""
+        help: "Define if send email"
+    enabled:
+        label: Enabled
+        placeholder: ""
+        help: "If subscription is enabled"
+    visible:
+        label: Visible
+        placeholder: ""
+        help: "If it's visible by user"
+    event:
+        label: Event
+        placeholder: ""
+        help: ""
+    user:
+        label: User
+        placeholder: ""
+        help: ""
+    organization:
+        label: Organization
+        placeholder: ""
+        help: ""
+    expressionRule:
+        label: Expression Rule
+        placeholder: ""
+        help: 'Only notify if expression is true. Help <a href="http://bit.ly/1hwYMsp" taget="_blank">http://bit.ly/1hwYMsp</a>'
+        placeholder: ""
+    save:
+        label: Save
+
+notification:
+    title:
+        label: Title
+        placeholder: ""
+        help: ""
+    description:
+        label: Description
+        placeholder: ""
+        help: "Supports markdown"
+    status:
+        label: Status
+        placeholder: ""
+        help: ""
+    level:
+        label: Level
+        placeholder: ""
+        help: ""
+    interfacePlacement:
+        label: Interface Placement
+        placeholder: ""
+        help: '<span class="text-danger">DEPRECATED!</span>'
+    actionRequired:
+        label: Require Action
+        placeholder: ""
+        help: "if thea user must confirm an action"
+    actionStatus:
+        label: Action Status
+        placeholder: ""
+        help: ""
+    event:
+        label: Event
+        placeholder: ""
+        help: ""
+    user:
+        label: User
+        placeholder: ""
+        help: ""
+    organization:
+        label: Organization
+        placeholder: ""
+        help: ""
+    save:
+        label: Save
+
+event:
+    key:
+        label: key
+        placeholder: ""
+        help: ""
+    manual:
+        label: Manual
+        placeholder: ""
+        help: "If this type of event is triggered manually Eg: newsletters"
+    description:
+        label: Description
+        placeholder: ""
+        help: ""
+    roles:
+        label: Roles
+        placeholder: "Define to what roles is available for this event"
+        help: ""
+    channels:
+        label: Channels
+        placeholder: "Define what channels are active for this event"
+        help: ""
+    defaults:
+        label: Defaults
+        placeholder: ""
+        help: ""
+        choice:
+            email: Send Email by default
+            visible: Is visible by end user
+            enabled: Is enabled by default
+    level:
+        label: Severity Level
+        placeholder: ""
+        help: ""
+    tags:
+        label: Tags
+        placeholder: ""
+        help: ""
+    expressionRule:
+        label: Expression Rule
+        placeholder: ""
+        help: 'Only notify if expression is true. Help <a href="http://bit.ly/1hwYMsp" taget="_blank">http://bit.ly/1hwYMsp</a>'
+    uiTemplate:
+        label: UI Template
+        placeholder: ""
+        help: "Twig path, supports placeholder %lang%"
+    emailTemplate:
+        label: Email Template
+        placeholder: ""
+        help: "Twig path, supports placeholder %lang%"
+    channelTemplate:
+        label: Channel templates
+        placeholder: ""
+        help: "JSON format - Test JSON http://jsonlint.com"
+    fromEmail:
+        label: From
+        placeholder: ""
+        help: "Define who sends the notifications"
+    fromName:
+        label: From Name
+        placeholder: ""
+        help: "Define the name who sends the notifications"
+    bcc:
+        label: Email BCC
+        placeholder: ""
+        help: "Send email BCC to this addresses"
+    update:
+        label: Force Subscriptions
+        placeholder: ""
+        help: "If active suscriptions is going to update"
+    save:
+        label: Save
+
+channel:
+    name:
+        label: Name
+        placeholder: ""
+        help: ""
+    service:
+        label: Service
+        placeholder: "Ej: instasent.channel.slack"
+        help: "Symfony service name"
+    description:
+        label: Description
+        placeholder: ""
+        help: ""
+    params:
+        label: Params
+        placeholder: "[]"
+        help: "JSON Format - Test JSON http://jsonlint.com"
+    save:
+        label: Save

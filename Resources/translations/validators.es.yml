@@ -1,0 +1,3 @@
+wc_notification:
+    subscription:
+        already_exists: Ya existe esta subscripción

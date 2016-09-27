@@ -1,0 +1,17 @@
+{% block subject -%}
+{{ event.title }}
+{%- endblock %}
+
+{% block message -%}
+{{ event.description|markdown|raw }}
+{%- endblock %}
+
+{#
+event.name
+event.notifyLevel
+event.description
+event.title
+event.notifyOrganizationTrigger.contactName
+event.notifyUserTrigger.contactName
+event.data.*
+#}

@@ -1,0 +1,253 @@
+{% extends 'WobbleCodeAdminBundle::layout.html.twig' %}
+
+{% block app_content_title %}
+  {{ 'WobbleCodeNotification.view.Admin.Tag.index.title'|trans }}
+{% endblock %}
+
+{% block app_content_content %}
+  <div class="row">
+    <div class="col-md-4 col-md-push-8">
+      <!--
+      <ul class="list-group list-flat">
+        <li class="list-group-item list-title">
+          <h5>{{ 'WobbleCodeNotification.view.Admin.Tag.index.summarize.groups.title'|trans }}</h5>
+        </li>
+        <li class="list-group-item">
+          {{ 'WobbleCodeNotification.view.Admin.Tag.index.summarize.groups.groupA'|trans }}
+          <span class="badge badge-default">1000</span>
+        </li>
+      </ul>
+      -->
+      <div class="summarize-box primary summarize-corner">
+        <h2>0</h2>
+        <p>{{ 'WobbleCodeNotification.view.Admin.Tag.index.summarize.box.total'|trans }}</p>
+      </div>
+    </div>
+
+    <div class="col-md-8 col-md-pull-4">
+      <div class="row crud-controls">
+        <div class="col-sm-7 col-group">
+          <ul id="datagrid-group" class="nav nav-pills nav-md-stacked">
+            <li class="active">
+              <a href="#success" data-filter="searchFilter" data-query="">
+              <span data-datagrid-count="all" class="badge badge-default pull-right">0</span>
+              {{ 'WobbleCodeNotification.view.Admin.Tag.index.filter.pill.all'|trans }}
+              </a>
+            </li>
+            <li>
+              <a href="#success" data-filter="searchFilter" data-query="success">
+              <span data-datagrid-count="success" class="badge badge-default pull-right">0</span>
+              {{ 'WobbleCodeNotification.view.Admin.Tag.index.filter.pill.success'|trans }}
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-5 col-group text-right">
+          <button class="btn btn-default" data-toggle="collapse" data-target="#search-filters">
+            <i class="fa fa-search"></i>
+            {{ 'WobbleCodeNotification.view.Admin.Tag.index.button.search'|trans }}
+          </button>
+          <a href={{ path('admin_notification_tag_new') }} class="btn btn-primary">
+            <i class="btn-icon-left fa fa-plus"></i>
+            {{ 'WobbleCodeNotification.view.Admin.Tag.index.button.add'|trans }}
+          </a>
+        </div>
+      </div>
+
+      <div id="search-filters" class="collapse">
+        <div class="row mt">
+          <div id="datetime-picker-start-container" class="col-sm-6 col-group">
+            <div id="datetime-picker-start" class="input-group datetimepicker">
+              <span class="input-group-addon addon-icon compact"><i class="fa fa-calendar"></i></span>
+              <input data-format="dd-MM-yyyy" type="text" class="form-control">
+            </div>
+          </div>
+          <div id="datetime-picker-end-container" class="col-sm-6 col-group">
+            <div id="datetime-picker-end" class="input-group datetimepicker">
+              <span class="input-group-addon addon-icon compact"><i class="fa fa-calendar"></i></span>
+              <input data-format="dd-MM-yyyy" type="text" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="datagrid-filter-multi hmt"></div>
+      </div>
+
+
+      <div class="datagrid mt">
+        <div class="grid"></div>
+        <div class="text-center" id="pagination"></div>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block import_scripts %}
+{{ parent() }}
+<script type="text/javascript">
+
+  /**
+   * Entity Model
+   * @type {Backbone.Model}
+   */
+  var BasicCrud = Backbone.Model.extend({
+    parse: function(response, xhr) {
+      response.timeObj = new Date(response.time);
+      return response;
+    }
+  });
+
+  /**
+   * Collection wrapped by pageable
+   * @type {Backbone.PageableCollection}
+   */
+  var BasicCrud = Backbone.PageableCollection.extend({
+    model: BasicCrud,
+    url: "{{ url("admin_notification_tag") }}",
+    mode: 'client',
+    parse: function(response, xhr) {
+      return response.entities;
+    },
+    state: {
+      pageSize: 20
+    }
+  });
+
+  var basicCrud = new BasicCrud();
+
+  /**
+   * Datagrid colums definitions
+   * @type {Array}
+   */
+  var columns = [
+        {
+      name: "",
+      cell: Backgrid.Extension.SelectRowCellCustom,
+      headerCell: Backgrid.Extension.SelectAllHeaderCellCustom
+    },
+        {
+      name: "id",
+      label: "{{ 'WobbleCodeNotification.view.Admin.Tag.index.grid.id.label'|trans }}",
+      editable: false,
+      cell: Backgrid.IntegerCell.extend({
+        orderSeparator: '',
+        className: 'integer-cell cell-left col-id'
+      })
+    },
+        {
+      name: "actions",
+      label: "{{ 'WobbleCodeNotification.view.Admin.Tag.index.grid.actions.label'|trans }}",
+      editable: false,
+      cell: Backgrid.StringCell.extend({
+        className: 'cell-actions',
+        template: _.template('<a href="<%= route_show %>"><span class="fa fa-list btn-icon-left"></span></a> <a href="<%= route_edit %>"><span class="fa fa-edit"></span></a>'),
+        render: function () {
+          this.model.attributes.route_show = Routing.generate( 'admin_notification_tag_show', { id: this.model.attributes.id });
+          this.model.attributes.route_edit = Routing.generate( 'admin_notification_tag_edit', { id: this.model.attributes.id });
+          this.$el.html(this.template(this.model.attributes));
+          return this;
+        }
+      }),
+      headerCell: Backgrid.HeaderCell.extend({
+        tagName: 'th class="cell-actions"'
+      })
+    }
+      ];
+
+  /**
+   * DataGrid Setup
+   * @type {Backgrid.Grid}
+   */
+  var grid = new Backgrid.Grid({
+    columns: columns,
+    collection: basicCrud,
+    className: 'table table-striped datagrid'
+  });
+
+  /**
+   * Setup Pagination extension
+   * @type {Backgrid.Extension.Pagination}
+   */
+  var pagination = new Backgrid.Extension.Paginator({
+    collection: basicCrud,
+    className: 'datagrid-pagination'
+  })
+
+  /**
+   * ClientSideFilterMulti definition
+   * @type {Backgrid.Extension.ClientSideFilterMulti}
+   */
+  var searchFilter = new Backgrid.Extension.ClientSideFilterMulti({
+    collection: basicCrud.fullCollection,
+    wait: 60,
+    placeholder: "{{ 'WobbleCodeNotification.view.Admin.Tag.index.filter.input.placeholder'|trans }}",
+    template: _.template('<form class="<%= className %>"><div class="input-group"><input type="text" class="form-control" placeholder="<%= placeholder %>"><span class="input-group-addon addon-icon compact"><i class="fa fa-search"></i></span></div></form>'),
+    className: '',
+    filters: [
+      {
+        name: 'date',
+        type: 'date',
+        start: new Date(2013, 5, 20),
+        end: new Date(2013, 7, 20),
+        field: 'timeObj'
+      },{
+        name: 'pills',
+        type: 'regexp',
+        query: '',
+        placeholders: false,
+        fields: ['status']
+      },{
+        name: 'default',
+        type: 'regexp',
+        query: '',
+        placeholders: ['id'],
+        fields: ['id']
+      }
+    ]
+  });
+
+  $(".datagrid-filter-multi").append(searchFilter.render().$el)
+
+  /** Append views */
+  $(".grid").append(grid.render().$el);
+$("#pagination").append(pagination.render().el);
+  /** Fetch data */
+  basicCrud.fetch({reset: true});
+
+  /** On Select events */
+  basicCrud.on('backgrid:select backgrid:selected', function () {});
+
+/** Bind group pills */
+  $('#datagrid-group a').on('click', function() {
+    $this = $(this);
+    $this.parent().siblings().removeClass('active');
+    $this.parent().addClass('active');
+    var query = $this.attr('data-query');
+    searchFilter.runSearch(1, query);
+  })
+/** DateTime */
+  $('#datetime-picker-start').datetimepicker({
+    pickTime: false,
+    appendTo: '#datetime-picker-start-container'
+  }).on('changeDate', function(e) {
+    searchFilter.runSearch(0, {
+      start: e.date,
+      end: searchFilter.filters[0].end
+    });
+  });
+
+  $('#datetime-picker-end').datetimepicker({
+    pickTime: false,
+    appendTo: '#datetime-picker-end-container'
+  }).on('changeDate', function(e) {
+    searchFilter.runSearch(0, {
+      start: searchFilter.filters[0].start,
+      end: e.date
+    });
+  });
+
+  $('.datetimepicker').click(function (e) {
+    $(this).datetimepicker('show');
+  });
+</script>
+{% endblock %}
