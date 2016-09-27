@@ -1,16 +1,15 @@
 {
     "name": "wobblecode/notification-bundle",
-    "desc": "[WIP] Notification based on events",
+    "description": "[WIP] Notification based on events",
     "license": "MIT",
     "type": "bundle",
-    "description": "instasent-admin",
     "autoload": {
         "psr-0": {
             "": "src/",
             "SymfonyStandard": "app/"
         },
         "psr-4": {
-            "WobbleCode\\UserBundle\\": ""
+            "WobbleCode\\NotificationBundle\\": ""
         }
     },
     "require": {
