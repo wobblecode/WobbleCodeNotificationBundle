@@ -46,7 +46,6 @@ services:
         class: WobbleCode\NotificationBundle\Twig\NotificationExtension
         arguments:
             - "@wobblecode_notification.notification_manager"
-            - "@security.context"
         tags:
             -  { name: twig.extension, alias: notification_extension }
 
