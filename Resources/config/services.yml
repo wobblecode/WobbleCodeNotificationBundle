@@ -38,29 +38,13 @@ services:
     wobblecode_notification.notification_subscriber:
         class: WobbleCode\NotificationBundle\EventListener\NotificationSubscriber
         arguments:
-            - @doctrine_mongodb.odm.document_manager
-            - @wobblecode_notification.notificator
+            - "@doctrine_mongodb.odm.document_manager"
+            - "@wobblecode_notification.notificator"
         tags:
             -  { name: kernel.event_subscriber }
     wobblecode_notification.twig.notification_extension:
         class: WobbleCode\NotificationBundle\Twig\NotificationExtension
         arguments:
-            - @wobblecode_notification.notification_manager
-            - @security.context
+            - "@wobblecode_notification.notification_manager"
         tags:
             -  { name: twig.extension, alias: notification_extension }
-
-    #Channels
-    wobblecode_notification.channel.ui:
-        class: WobbleCode\NotificationBundle\Channel\UiChannel
-        arguments:
-            - "@wobblecode_notification.notification_manager"
-            - "@twig"
-
-    wobblecode_notification.channel.mail:
-        class: WobbleCode\NotificationBundle\Channel\MailChannel
-        arguments:
-            - "@instasent_resque.resque"
-            - "@twig"
-            - "@swiftmailer.mailer.default"
-            - "@swiftmailer.mailer.default.transport.real"
