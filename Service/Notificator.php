@@ -217,7 +217,7 @@ class Notificator
             $this->channelNotify($event, $eventEntity, $subscription, $lang, $user);
         }
     }
-    
+
     private function channelNotify(GenericEvent $event, Event $eventEntity, Subscription $subscription, $lang, $user)
     {
         if (!$subscription->getEnabled()) {
@@ -230,7 +230,7 @@ class Notificator
 
         $notifyForceChannels = $event->hasArgument('notifyForceChannels') ?
             $event->getArgument('notifyForceChannels') : [];
-        
+
         //external channels
         foreach ($eventEntity->getChannels() as $channel) {
 
